@@ -1,0 +1,16 @@
+# YOLOv5 🚀 by Ultralytics, GPL-3.0 license
+# Example usage: python train.py --data training_config.yaml
+# parent
+# ├── bee-finder
+#     └── data
+
+
+# Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]
+path: your_path #C:/Users/Max Mustermann/Desktop/bee-finder/data  # dataset root dir
+train: images/train
+val: images/val
+test: images/test 
+
+# Classes
+names:
+  0: Class_0
