@@ -359,7 +359,7 @@ def process_video(video_path):
         logging.info(f"---------------------------------------------------------------------------------")
         logging.info(f"Skipping format conversion, video already in mp4 format...")
 
-    # vid_to_frames(path_to_video_mp4, args.fps) 
+    vid_to_frames(path_to_video_mp4, args.fps) 
 
     image_list = import_frames_to_list(save_to_dir)
 
@@ -369,10 +369,10 @@ def process_video(video_path):
     frames_to_vid(save_to_dir, args.fps)
 
     # Remove all extracted images in directory after processing
-    # os.chdir(f"{save_to_dir}")
-    # jpg_files = glob.glob('*.jpg')
-    # for file in jpg_files:
-    #     os.remove(file)
+    os.chdir(f"{save_to_dir}")
+    jpg_files = glob.glob('*.jpg')
+    for file in jpg_files:
+        os.remove(file)
     
     end_time = datetime.datetime.now()
     delta = end_time - start_time
@@ -390,9 +390,9 @@ def main(args):
     global cuda_device
     cuda_device = torch.device(f'cuda:{args.cuda_device}')
 
-    cuda_device = torch.device(f'cuda:{2}') #hashtagged this Mohamed
+    # cuda_device = torch.device(f'cuda:{2}') #hashtagged this Mohamed
 
-    args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_12_15_00_01.h264' #hashtagged this Mohamed
+    # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_12_15_00_01.h264' #hashtagged this Mohamed
     # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_10_10_00_01.h264'
     # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_12_15_00_01.mp4' #hashtagged this Mohamed
     # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/videos_test'
