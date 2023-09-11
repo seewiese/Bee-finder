@@ -37,6 +37,7 @@ def yolo_to_converted(input_image, input_bbox):
     #Convert YOLO to VOC and then to a converted format (x1-coordinate, y1-coodinate, x2-coordinate, y2-coordinate, class) 
     converted_bboxes = np.zeros((rows,columns))
     bboxes_voc = np.zeros(input_bbox.shape)
+    
     for i in range(rows):
         if rows == 1:
             bbox_width = float(input_bbox[3]) * w
@@ -150,12 +151,12 @@ def random_aug_generator(img, bboxes):
 
     return img_aug, bboxes_aug
 
-def to_save(train_image_file_list, img_aug, bboxes_aug, class_number, your_pathway):
+def to_save(train_image_file_list, img_aug, bboxes_aug):
     """
     This function takes as input, the augmented image, and it's augmented bounding box (annotation) and saves them locally to a specified directory.
     """
-    directory_images = f"{your_pathway}/images/{class_number}_augmented"
-    directory_labels = f"{your_pathway}/labels/{class_number}_augmented"
+    directory_images = f"{args.your_pathway}/images/{args.class_number}_augmented"
+    directory_labels = f"{args.your_pathway}/labels/{args.class_number}_augmented"
 
     if not os.path.exists(directory_images):
         os.makedirs(directory_images)
@@ -185,7 +186,10 @@ def to_save(train_image_file_list, img_aug, bboxes_aug, class_number, your_pathw
 
     os.chdir(directory_labels)
     
-    fmt_str = ['%.0f' if i == 0 else '%.5f' for i in range(len(bboxes_aug[0]))]
+    if len(bboxes_aug[0]) != 0:
+        fmt_str = ['%.0f' if i == 0 else '%.5f' for i in range(len(bboxes_aug[0]))]
+    else:
+        pass
     # Saving the bounding box
     np.savetxt(bbox_filename, bboxes_aug, delimiter = ' ', fmt = fmt_str)
     
@@ -199,16 +203,20 @@ if __name__ == "__main__":
     args = parse_args()
     
     #main(args)
-    
+
+    # for debugging purposes
+    # args.your_pathway = '/home/katharina/yolov5_modified/data/' 
+    # args.class_number = 'Class_0'
+
     images_directory = f"{args.your_pathway}/images/{args.class_number}"
     labels_directory = f"{args.your_pathway}/labels/{args.class_number}"
 
-    train_image_file_list = os.listdir(images_directory) # Directory containing original training images
-    train_annotations_file_list = os.listdir(labels_directory) # Directory containing original YOLO annotation txt files
+    train_image_file_list = sorted(os.listdir(images_directory)) # Directory containing original training images
+    train_annotations_file_list = sorted(os.listdir(labels_directory)) # Directory containing original YOLO annotation txt files
 
     for i in range(len(train_annotations_file_list)):
-        input_image = cv2.imread(images_directory + "\\" + train_image_file_list[i])[:,:,::-1]  # opencv loads images in bgr. the [:,:,::-1] does bgr -> rgb
-        input_bboxes = np.genfromtxt(labels_directory + "\\" + train_annotations_file_list[i], dtype=str, encoding=None, delimiter=" ") # Add YOLO annotation text files into a numpy array
+        input_image = cv2.imread(images_directory + "//" + train_image_file_list[i])[:,:,::-1]  # opencv loads images in bgr. the [:,:,::-1] does bgr -> rgb
+        input_bboxes = np.genfromtxt(labels_directory + "//" + train_annotations_file_list[i], dtype=str, encoding=None, delimiter=" ") # Add YOLO annotation text files into a numpy array
         
         if input_bboxes.size != 0: # Skip empty YOLO annotation text files with images that do not contain any objects
             try:
@@ -237,7 +245,7 @@ if __name__ == "__main__":
                 print("bboxes_aug_voc:\n {}".format(bboxes_aug_voc))
                 print("bboxes_aug_yolo:\n {}".format(bboxes_aug_yolo))
 
-                to_save(train_image_file_list[i], img_aug, bboxes_aug_yolo, args.class_number, args.your_pathway)
+                to_save(train_image_file_list[i], img_aug, bboxes_aug_yolo)
 
                     #plotted_img = draw_rect(img_aug, bboxes_aug_converted)
                     #plt.imshow(plotted_img)
