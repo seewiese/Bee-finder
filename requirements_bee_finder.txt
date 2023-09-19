@@ -47,5 +47,5 @@ seaborn>=0.11.0
 # mss  # screenshots
 # albumentations>=1.0.3
 # pycocotools>=2.0.6  # COCO mAP
-# paddleocr==2.6.0.2 # Timestamp extractor
-# paddlepaddle==2.3.2 # Timestamp extractor
+paddleocr==2.6.0.2 # Timestamp extractor, currently in beta
+paddlepaddle==2.3.2 # Timestamp extractor, currently in beta
