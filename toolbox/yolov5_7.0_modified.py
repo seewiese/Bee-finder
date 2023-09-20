@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import datetime, time
 import copy
-from paddleocr import PaddleOCR
+#from paddleocr import PaddleOCR
 import logging
 import math
 #import ffmpeg #hashtagged this as ffmpeg is already installed in yolo_env, otherwise error KW
@@ -53,14 +53,17 @@ def frames_to_vid(save_to_dir, fps):
     image_list = []
     os.chdir(f"{save_to_dir}/bees_detected")
 
-    for file_name in glob.glob("*.jpg"):
-      image_list.append(file_name)
-    with open('image_list.txt', mode='wt', encoding='utf-8') as myfile:
-      myfile.write('\n'.join(['file ' + sub for sub in image_list]))
+    if len(os.listdir(os.getcwd())) == 0:
+       logging.info(f"No bees were found in video '{os.path.split(save_to_dir)[1]}.h264'") 
+    else:
+        for file_name in glob.glob("*.jpg"):
+            image_list.append(file_name)
+        with open('image_list.txt', mode='wt', encoding='utf-8') as myfile:
+            myfile.write('\n'.join(['file ' + sub for sub in image_list]))
+
+        os.chdir(f"{save_to_dir}/outputs")
     
-    os.chdir(f"{save_to_dir}/outputs")
-    
-    os.system(f'ffmpeg -r {fps} -f concat -i "{save_to_dir}/bees_detected/image_list.txt" {os.path.split(save_to_dir)[1]}_bees_reconstructed.mp4')
+        os.system(f'ffmpeg -r {fps} -f concat -i "{save_to_dir}/bees_detected/image_list.txt" {os.path.split(save_to_dir)[1]}_bees_reconstructed.mp4')
 
 def import_frames_to_list(save_to_dir):
     """
@@ -225,6 +228,7 @@ def move_detected_objects_to_dir(pred, save_to_dir, extract_timestamp, cut, **kw
         ocr = kwargs['ocr']
 
     bees_detected_dir = f"{save_to_dir}/bees_detected/"
+
     if cut == 'True':
 
         pred_with_objects = copy.deepcopy(pred)
@@ -259,7 +263,6 @@ def move_detected_objects_to_dir(pred, save_to_dir, extract_timestamp, cut, **kw
             return bees_detected_dir
 
     elif cut == 'False':
-
         pred.save(save_dir = bees_detected_dir) # Saves frames with bees detected into images 
 
     if extract_timestamp == 'True':
@@ -389,9 +392,9 @@ def main(args):
     
     global cuda_device
     cuda_device = torch.device(f'cuda:{args.cuda_device}')
-
     # cuda_device = torch.device(f'cuda:{2}') #hashtagged this Mohamed
 
+    # args.path_to_video = '/home/katharina/Bee_videos/Plot01/test/Plot01_top_2021_04_10_10_00_01.h264' #hashtagged this Mohamed
     # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_12_15_00_01.h264' #hashtagged this Mohamed
     # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_10_10_00_01.h264'
     # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_12_15_00_01.mp4' #hashtagged this Mohamed
@@ -402,9 +405,11 @@ def main(args):
         videos = os.listdir(args.path_to_video)
         for video in videos:
             video_path = f"{args.path_to_video}/{video}"
+            logging.info(f"Processing video {video_path}")
             process_video(video_path)
     elif os.path.isfile(args.path_to_video):
         video_path = args.path_to_video
+        logging.info(f"Processing video {video_path}")
         process_video(video_path)
     else:
         print(f"Video {args.path_to_video} not found")
