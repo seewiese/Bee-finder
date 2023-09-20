@@ -160,53 +160,52 @@ def to_save(train_image_file_list, img_aug, bboxes_aug):
 
     if not os.path.exists(directory_images):
         os.makedirs(directory_images)
+    if not os.path.exists(directory_labels):
         os.makedirs(directory_labels)
 
-    # Change the current directory to specified directory 
-    os.chdir(directory_images)
-      
-    print("Before saving image:")  
-    print(os.listdir(directory_images))  
-    
-    seconds_from_start = time.time()
+    # print("Before saving image:")  
+    # print(os.listdir(directory_images))
 
     # Filename
     filename = f"{os.path.splitext(train_image_file_list)[0]}_augmented.jpg"
     bbox_filename = f"{os.path.splitext(train_image_file_list)[0]}_augmented.txt"
     #filename = "augmented_image_%d.jpg"%(img_)
     
-    # Converting the image to RGB to BGR as it is the input type for cv2.imwrite()
-    img_aug = cv2.cvtColor(img_aug, cv2.COLOR_RGB2BGR)
-    # Saving the image
-    cv2.imwrite(filename, img_aug)
+    if len(bboxes_aug) != 0:
+        # Change the current directory to specified directory 
+        os.chdir(directory_images)
+        # Converting the image to RGB to BGR as it is the input type for cv2.imwrite()
+        img_aug = cv2.cvtColor(img_aug, cv2.COLOR_RGB2BGR)
+        # Saving the image
+        cv2.imwrite(filename, img_aug)
 
-    # List files and directories  
-    print("After saving image:")  
-    print(os.listdir(directory_images))
-
-    os.chdir(directory_labels)
-    
-    if len(bboxes_aug[0]) != 0:
+        # Change the current directory to specified directory
+        os.chdir(directory_labels)
         fmt_str = ['%.0f' if i == 0 else '%.5f' for i in range(len(bboxes_aug[0]))]
-    else:
-        pass
-    # Saving the bounding box
-    np.savetxt(bbox_filename, bboxes_aug, delimiter = ' ', fmt = fmt_str)
-    
-    # List files and directories  
-    print("After saving labels:")  
-    print(os.listdir(directory_labels))
-    
-    print('Successfully saved')
+        # Saving the bounding box
+        np.savetxt(bbox_filename, bboxes_aug, delimiter = ' ', fmt = fmt_str)
 
+        print(f'{filename} and {bbox_filename} successfully saved')
+    else:
+        # np.savetxt(bbox_filename, bboxes_aug, delimiter = ' ')
+        print(f"No bees found in image {train_image_file_list}, skipping save...")
+
+    # # List files and directories  
+    # print("After saving image:")  
+    # print(os.listdir(directory_images))
+
+    # # List files and directories  
+    # print("After saving labels:")  
+    # print(os.listdir(directory_labels))
+    
 if __name__ == "__main__":
     args = parse_args()
     
     #main(args)
 
     # for debugging purposes
-    # args.your_pathway = '/home/katharina/yolov5_modified/data/' 
-    # args.class_number = 'Class_0'
+    args.your_pathway = '/home/katharina/test_bee-finder/bee-finder/data' 
+    args.class_number = 'Class_0'
 
     images_directory = f"{args.your_pathway}/images/{args.class_number}"
     labels_directory = f"{args.your_pathway}/labels/{args.class_number}"
@@ -229,21 +228,21 @@ if __name__ == "__main__":
 
                 #if int(float(input_bboxes[0])) == 0: # Skips performing Image Augmentation on images with class 0 (Female O.cornuta)
 
-                print("input_bboxes:\n {}".format(input_bboxes))
+                # print("input_bboxes:\n {}".format(input_bboxes))
 
                 bbox_converted, bboxes_voc = yolo_to_converted(input_image, input_bboxes)
 
-                print("bboxes_voc:\n {}".format(bboxes_voc))
-                print("bbox_converted:\n {}".format(bbox_converted))
+                # print("bboxes_voc:\n {}".format(bboxes_voc))
+                # print("bbox_converted:\n {}".format(bbox_converted))
 
                 img_aug, bboxes_aug_converted = random_aug_generator(input_image, bbox_converted)
 
-                print("bboxes_aug_converted:\n {}".format(bboxes_aug_converted))
+                # print("bboxes_aug_converted:\n {}".format(bboxes_aug_converted))
 
                 bboxes_aug_voc, bboxes_aug_yolo  = converted_to_yolo(img_aug, bboxes_aug_converted)
 
-                print("bboxes_aug_voc:\n {}".format(bboxes_aug_voc))
-                print("bboxes_aug_yolo:\n {}".format(bboxes_aug_yolo))
+                # print("bboxes_aug_voc:\n {}".format(bboxes_aug_voc))
+                # print("bboxes_aug_yolo:\n {}".format(bboxes_aug_yolo))
 
                 to_save(train_image_file_list[i], img_aug, bboxes_aug_yolo)
 
@@ -256,21 +255,21 @@ if __name__ == "__main__":
 
                 #if 0 not in input_bboxes[:0].astype(int):
 
-                print("input_bboxes:\n {}".format(input_bboxes))
+                # print("input_bboxes:\n {}".format(input_bboxes))
 
                 bbox_converted, bboxes_voc = yolo_to_converted(input_image, input_bboxes)
 
-                print("bboxes_voc:\n {}".format(bboxes_voc))
-                print("bbox_converted:\n {}".format(bbox_converted))
+                # print("bboxes_voc:\n {}".format(bboxes_voc))
+                # print("bbox_converted:\n {}".format(bbox_converted))
 
                 img_aug, bboxes_aug_converted = random_aug_generator(input_image, bbox_converted)
 
-                print("bboxes_aug_converted:\n {}".format(bboxes_aug_converted))
+                # print("bboxes_aug_converted:\n {}".format(bboxes_aug_converted))
 
                 bboxes_aug_voc, bboxes_aug_yolo  = converted_to_yolo(img_aug, bboxes_aug_converted)
 
-                print("bboxes_aug_voc:\n {}".format(bboxes_aug_voc))
-                print("bboxes_aug_yolo:\n {}".format(bboxes_aug_yolo))
+                # print("bboxes_aug_voc:\n {}".format(bboxes_aug_voc))
+                # print("bboxes_aug_yolo:\n {}".format(bboxes_aug_yolo))
 
                 to_save(train_image_file_list[i], img_aug, bboxes_aug_yolo)
 
