@@ -163,7 +163,7 @@ def to_save(train_image_file_list, img_aug, bboxes_aug):
     if not os.path.exists(directory_labels):
         os.makedirs(directory_labels)
 
-    # print("Before saving image:")  
+    # print("Before saving image:")   
     # print(os.listdir(directory_images))
 
     # Filename
