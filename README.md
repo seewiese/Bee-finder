@@ -52,7 +52,8 @@ A decent NVIDIA GPU is necessary to use the CNN YOLOv5 on which the bee-finder i
         1. [Download](https://visualstudio.microsoft.com/de/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false) Visual Studio Community 2022. <br>
         2. Install "VisualStudioSetup.exe". After the installer has started, select "Desktop development with C++" and click on "Install" with following parameters:
 
-![grafik](https://github.com/seewiese/Bee-detector/assets/141718841/5b234014-73bd-446b-8788-d00558ffee55)
+![Installer](https://github.com/seewiese/bee-finder/assets/141718841/2dd2ae04-9c2d-43b8-8be5-4f033fa8d18a)
+
 <br>
   - On Linux: No installation neccesary, Windows relevant only.<br>
 
@@ -265,7 +266,8 @@ adapt following arguments according to your setup:
 <strong>--batch</strong>: "batch" specifies how many images are processed at once and depends on the available GPU´s memory capabilities. Processing 16 images simultaneously is relatively high for a single GPU and may produce an error (“out of memory”). If this is the case, lower the number. If one uses many GPUs simultaneously, one can increase the number to e.g. 64 or even higher.
 <br>
 <strong>--epochs</strong>: "epochs" specifies the total number of iterations of all training data in one training cycle. To find the desired best performance requires a bit trial and error. The higher the number, the longer the training time is. As such, try to increase the epochs e.g. in steps of 100 and find a well-performing model with the lowest number of epochs. <br>
-<strong>--weights</strong>: Choose a pretrained network from the [ultralytics website]([here](https://code.visualstudio.com/download) and specify it here. Those weights will be automatically downloaded in the bee-finder. Please note the specifications to image size. Those should correspond with "--img" and the actual annotated images size. 
+<strong>--weights</strong>: Choose a pretrained network from the ultralytics website (https://github.com/ultralytics/yolov5#pretrained-checkpoints) and specify it here. Those weights will be automatically downloaded in the bee-finder. Please note the specifications to image size. Those should correspond with "--img" and the actual annotated images size. 
+
 <br>
 <br>
 
