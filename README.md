@@ -322,7 +322,7 @@ We collected some mistakes that a person can run into.
 <br>
 
 <strong>Assertion error: File not found</strong> <br>
-![grafik](https://github.com/seewiese/Bee-finder/assets/141718841/039c1bf3-bc38-4b9b-aeec-1d260c220468)
+![AssertionError](https://github.com/seewiese/bee-finder/assets/141718841/c49c3d9a-4ec8-4111-bd3a-cdae33e45b6e)
 
 <br>
 
@@ -332,12 +332,12 @@ In this case, the wrong separators were used to set the correct path. Windows ca
 
 <strong>Set-Location </strong> <br>
 
-![grafik](https://github.com/seewiese/Bee-finder/assets/141718841/555e5740-f9ab-4a24-b88f-6dc284d390c3)
+![Set-Location](https://github.com/seewiese/bee-finder/assets/141718841/f038778e-1374-4595-a8d4-daaf734ad322)
 
 <br>
 
 This error shows that it cannot recognise the pathway prompted in the menu. The error is caused by the folder which contains a " "[space] and can be easily fixed by wrapping the whole pathway in ' '. The fixed command looks like this: 
-```bash
+```
 cd 'C:/Users/Katharina Wittmann/Documents/Random_folder'
 ```
 
@@ -349,7 +349,7 @@ cd 'C:/Users/Katharina Wittmann/Documents/Random_folder'
 
 <br>
 
-![grafik](https://github.com/seewiese/Bee-finder/assets/141718841/3cd38b2c-5407-4d9b-8e7e-c72c3fc4bf96)
+![CUDA](https://github.com/seewiese/bee-finder/assets/141718841/5a417928-08b2-4382-8a31-5f64e4fa063a)
 
 <br>
 
