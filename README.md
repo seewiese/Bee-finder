@@ -54,22 +54,22 @@ A decent NVIDIA GPU is necessary to use the CNN YOLOv5 on which the bee-finder i
 
 ![Installer](https://github.com/seewiese/bee-finder/assets/141718841/2dd2ae04-9c2d-43b8-8be5-4f033fa8d18a)
 
-<br>
-  - On Linux: No installation neccesary, Windows relevant only.<br>
+  - On Linux: No installation neccesary, required for Windows only.<br><br>
 
 <em>CUDA and cuDNN</em>
 <br>
-Developed by NVidia, CUDA focuses on general computing on GPUs and speeds up various computations. It is required to run deep learning frameworks such as PyTorch (required for YOLOv5). Please note, that a NVidia account is neccessary to download files.
+Developed by NVIDIA, CUDA focuses on general computing on GPUs and speeds up various computations. It is required to run deep learning frameworks such as PyTorch (required for YOLOv5). Please note, that a NVIDIA account is neccessary to download files.
 - On Windows:<br>
-      - Download and install CUDA version 11.7.1 from [CUDA Toolkit 11.7 Update 1](https://developer.nvidia.com/cuda-11-7-1-download-archive?target_os=Windows&target_arch=x86_64&target_version=11&target_type=exe_local) (default settings).<br>
-      - Download cuDNN version 8.5.0 for CUDA 11.x from [CUDA Deep Neural Network (cuDNN)](https://developer.nvidia.com/cudnn).
-        To install CuDNN, one needs to copy following files in the respective CUDA directory (found in the "NVidia GPU computing Toolkit" folder): <br><br>
+      - Download and install CUDA version 11.7.1 from [CUDA Toolkit 11.7 Update 1](https://developer.NVIDIA.com/cuda-11-7-1-download-archive?target_os=Windows&target_arch=x86_64&target_version=11&target_type=exe_local) (default settings).<br>
+      - Download cuDNN version 8.5.0 for CUDA 11.x from [CUDA Deep Neural Network (cuDNN)](https://developer.NVIDIA.com/cudnn).
+        To install CuDNN, one needs to copy following files in the respective CUDA directory (found in the "NVIDIA GPU computing Toolkit" folder): <br><br>
           - bin/cudnn64/8.dll <br>
           - include/cudnn.h <br>
           - lib/cudnn.lib <br> <br>
-  :bulb: <strong>TIPP</strong>: If the version listed here cannot be found on the website: all archived versions of cuDNN are found [here](https://developer.nvidia.com/rdp/cudnn-archive). 
+  :bulb: <strong>TIPP</strong>: If the version listed here cannot be found on the website: all archived versions of cuDNN are found [here](https://developer.NVIDIA.com/rdp/cudnn-archive). 
+<br>
 
-- On Linux: No installation neccesary, Windows relevant only.<br> <br>
+- On Linux: No installation neccesary, required for Windows only.<br> <br>
 
 <br>
 <em>Visual Studio Code</em> 
@@ -240,7 +240,12 @@ To train YOLOv5, you need to adapt the file “training_config.yaml” first.  <
 conda activate yolo_env
 ```
 <br>
-2.    Open the file, which you can find in the directory <em>bee-finder/data</em>, with Visual Studio Code. In there, replace the class names with the classes predefined in the annotation process, e.g. "O.cornuta", "bee", "Class_0" etc.. Save the file to finalize configuration for the YOLOv5 bee-finder. <br> <br>
+
+2.    Navigate to the directory in which the file "train.py" is found, by copy-pasting the pathway to the function, e.g. ```cd 'C:/Users/Max Mustermann/Desktop/bee-finder/'```
+  
+<br>
+
+3.   Open the file "training_config.yaml", which you can find in the directory <em>bee-finder/data</em>, with Visual Studio Code. In there, replace the class names with the classes predefined in the annotation process, e.g. "O.cornuta", "bee", "Class_0" etc.. Save the file to finalize configuration for the YOLOv5 bee-finder. <br> <br>
 :bulb: <strong>TIPP</strong>: A quick adaptation in the Anaconda prompt is also possible with a standard software called nano (already installed in base anaconda), so you can adapt the code by navigating to the folder which contains the "training_config.yaml" file via Anaconda prompt and type ```nano training_config.yaml```. Change the pathway, press Ctrl + X and confirm the change with Y. <br>
 
 ![grafik](https://github.com/seewiese/Bee_finder_old/assets/141718841/b3e1ec6b-2064-4108-a332-4f13494591c2)
@@ -248,7 +253,7 @@ conda activate yolo_env
 
 <br>
 
-3.    Before you train your own YOLO network with
+4.    Before you train your own YOLO network with
 
 <br>
 
@@ -272,6 +277,8 @@ adapt following arguments according to your setup:
 <br>
 
 For every epoch, the box-loss, object loss and class loss will be shown. Also, the mAP@0.5:0.95 will be depicted, which will increase each epoch while YOLO improves its detecting skills by adjusting weights until no improvement is possible any more. If this plateau cannot be found with the epochs you specified within the “train.py” function, repeat the training by increasing the number of epochs. All results of the run will be saved in a results.csv document within <em>bee-finder/runs/train/exp</em>.
+<br><br>
+The best weights will be saved in the weights folder.
 <br>
 
 🠊 YOLOv5 has been trained successfully.
