@@ -68,7 +68,7 @@ Developed by NVidia, CUDA focuses on general computing on GPUs and speeds up var
           - lib/cudnn.lib <br> <br>
   :bulb: <strong>TIPP</strong>: If the version listed here cannot be found on the website: all archived versions of cuDNN are found [here](https://developer.nvidia.com/rdp/cudnn-archive). 
 
-- On Linux: No installation neccesary, Windows relevant only.<br> <br> <br>
+- On Linux: No installation neccesary, Windows relevant only.<br> <br>
 
 <br>
 <em>Visual Studio Code</em> 
@@ -178,7 +178,7 @@ python image_augmentation.py --class_number="Class_0"  --your_pathway='[system_p
 
 <br>
 
-Your augmented images and annotations will be found in a folder named after your Class number and the suffix "_augmented" (i.e. "Class_0_augmented"). If you are satisfied with the results, move all ".jpg" files and ".txt" files in the <em>Class_0</em>em> folder and delete the <em>Class_0_augmented</em> folder. <br> 
+Your augmented images and annotations will be found in a folder named after your Class number and the suffix "_augmented" (i.e. "Class_0_augmented"). If you are satisfied with the results, move all ".jpg" files and ".txt" files in the <em>Class_0</em> folder and delete the folder <em>Class_0_augmented</em>. <br> 
 
 :bulb: <strong>TIPP</strong>: If you have more than one class, add e.g. "Class_1" folder in each the "images" and "labels" folder and adapt the prompt accordingly (e.g.```--class_number="Class_1"```) to separately augment this class, or combine all classes to one single folder if the dataset is already well-balanced. Please note that images without annotation (i.e. background only images) will not be augmented. 
 
@@ -337,9 +337,7 @@ In this case, the wrong separators were used to set the correct path. Windows ca
 <br>
 
 This error shows that it cannot recognise the pathway prompted in the menu. The error is caused by the folder which contains a " "[space] and can be easily fixed by wrapping the whole pathway in ' '. The fixed command looks like this: 
-```
-cd 'C:/Users/Katharina Wittmann/Documents/Random_folder'
-```
+```cd 'C:/Users/Katharina Wittmann/Documents/Random_folder'```
 
  <br>
 2. While training YOLOv5: <br>
@@ -360,9 +358,7 @@ This error shows, when your GPU cannot process as many images simultaneously as 
 <strong>IndexError: index 2 is out of bounds for axis 0 with size 1</strong>
 <br>
 
-
-
-![grafik](https://github.com/seewiese/Bee-finder/assets/141718841/5576c110-32d9-4ea2-9c85-477c119cb3c2)
+![Index](https://github.com/seewiese/bee-finder/assets/141718841/8258384a-bfad-42e8-8a40-7520413ab6bc)
 
 <br>
 This error shows when there is a problem with the annotated classes. In this case, there were annotations of a class "2", which was not specified in the "training_config.yaml" file. One can easily fix this by either correcting the "training_config.yaml" file when there are more than one classes (see <strong>Train yolov5 with custom data</strong>). The bee-finder only has one class, so that a correction of the file containing the class "2" to class "0" (as we only have "bee" as a class) solved the error.
@@ -372,7 +368,7 @@ Before running the training again, make sure to delete the all cache files in th
 
 
 ## References 
-Jocher, G. (2020). YOLOv5 by Ultralytics (Version 6.2) [Computer software]. https://doi.org/10.5281/zenodo.3908559 
+Jocher, G. (2020). YOLOv5 by Ultralytics (Version 7.0) [Computer software]. https://doi.org/10.5281/zenodo.3908559 
 
 <br>
 
