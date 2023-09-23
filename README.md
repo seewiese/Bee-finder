@@ -313,7 +313,7 @@ conda activate yolo_env
  <br>
 
 ```bash
-python yolov5_7.0_modified.py --path_to_video="<Path_to_videos>/"--model_weights="[system_path_to_folder]/best.pt" --fps=30
+python yolov5_7.0_modified.py --path_to_video="<Path_to_videos>/" --model_weights="[system_path_to_folder]/best.pt" --fps=30
 ```
 
 <br>   
