@@ -373,7 +373,13 @@ This error shows, when your GPU cannot process as many images simultaneously as 
 This error shows when there is a problem with the annotated classes. In this case, there were annotations of a class "2", which was not specified in the "training_config.yaml" file. One can easily fix this by either correcting the "training_config.yaml" file when there are more than one classes (see <strong>Train yolov5 with custom data</strong>). The bee-finder only has one class, so that a correction of the file containing the class "2" to class "0" (as we only have "bee" as a class) solved the error.
 Before running the training again, make sure to delete the all cache files in the "labels" folder (e.g. train.cache), as otherwise YOLOv5 can show the same error again even though the problem has been solved.
 
+3. While operating the bee-finder
 
+<strong>UnboundLocalError: local variable 'path_to_video_mp4' referenced before assignment </strong>
+![grafik](https://github.com/seewiese/bee-finder/assets/141718841/2d3d64b2-22aa-4536-a2db-ffd59165245b)
+
+<br>
+This error is produced by having run the bee-finder once already and there are still files in the created directories. Please delete all previous output files of the bee-finder for the videos you want to use the bee-finder on again (i.e. the directory with the same name as the video file) run the bee-finder again. <br> 
 
 
 ## References 
