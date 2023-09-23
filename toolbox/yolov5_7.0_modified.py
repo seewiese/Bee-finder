@@ -56,7 +56,7 @@ def frames_to_vid(save_to_dir, fps):
     if len(os.listdir(os.getcwd())) == 0:
        logging.info(f"No bees were found in video '{os.path.split(save_to_dir)[1]}.h264'") 
     else:
-        for file_name in glob.glob("*.jpg"):
+        for file_name in sorted(glob.glob("*.jpg")):
             image_list.append(file_name)
         with open('image_list.txt', mode='wt', encoding='utf-8') as myfile:
             myfile.write('\n'.join(['file ' + sub for sub in image_list]))
