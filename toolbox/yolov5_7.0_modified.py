@@ -90,23 +90,26 @@ def yolo_detect(model_weights, batch_size, image_list, save_to_dir, extract_time
 
     # First time initialization for counter of count_ocornuta
     bee_counter = {'ocornuta'   : 0,
-                 'blue_tag'   : 0,
-                 'red_tag'    : 0,
-                 'yellow_tag' : 0,
-                 'white_tag'  : 0
+                   'blue_tag'   : 0,
+                   'red_tag'    : 0,
+                   'yellow_tag' : 0,
+                   'white_tag'  : 0
     }
 
-    no_occ_accum = {'ocornuta' : np.zeros(window_size),
-                 'blue_tag'    : np.zeros(window_size),
-                 'red_tag'     : np.zeros(window_size),
-                 'yellow_tag'  : np.zeros(window_size),
-                 'white_tag'   : np.zeros(window_size)
+    no_occ_accum = {'ocornuta'   : np.zeros(window_size),
+                    'blue_tag'   : np.zeros(window_size),
+                    'red_tag'    : np.zeros(window_size),
+                    'yellow_tag' : np.zeros(window_size),
+                    'white_tag'  : np.zeros(window_size)
     }
 
     count = 0
     # Model
+    model_dir = f"{os.getcwd()}/bee-finder"
+
+    model = torch.hub.load(model_dir, 'custom', path = model_weights, source = 'local') #changed to directory with yolov5 folder KW
     # model = torch.hub.load('/home/katharina/yolov5_modified', 'custom', path = model_weights, source = 'local') #changed to directory with yolov5 folder KW
-    model = torch.hub.load('/home/katharina/bee-finder', 'custom', path = model_weights, source = 'local') #tryout bee_finder KW
+    # model = torch.hub.load('/home/katharina/bee-finder', 'custom', path = model_weights, source = 'local') #tryout bee_finder KW
     model.to(cuda_device)
 
     imgs = []
@@ -394,7 +397,7 @@ def main(args):
     cuda_device = torch.device(f'cuda:{args.cuda_device}')
     # cuda_device = torch.device(f'cuda:{2}') #hashtagged this Mohamed
 
-    # args.path_to_video = '/home/katharina/Bee_videos/Plot01/test/Plot01_top_2021_04_10_10_00_01.h264' #hashtagged this Mohamed
+    # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_10_10_00_01.h264' #hashtagged this Mohamed
     # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_12_15_00_01.h264' #hashtagged this Mohamed
     # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_10_10_00_01.h264'
     # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_12_15_00_01.mp4' #hashtagged this Mohamed
