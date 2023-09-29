@@ -106,7 +106,7 @@ def yolo_detect(model_weights, batch_size, image_list, save_to_dir, extract_time
 
     count = 0
     # Model
-    model_dir = f"{os.getcwd()}/bee-finder"
+    # model_dir = f"{os.getcwd()}/bee-finder" #Removed "/bee-finder" as wrong path KW
 
     model = torch.hub.load(model_dir, 'custom', path = model_weights, source = 'local') #changed to directory with yolov5 folder KW
     # model = torch.hub.load('/home/katharina/yolov5_modified', 'custom', path = model_weights, source = 'local') #changed to directory with yolov5 folder KW
@@ -117,9 +117,12 @@ def yolo_detect(model_weights, batch_size, image_list, save_to_dir, extract_time
     imgs_names = []
     i = 1
 
-    # ocr = PaddleOCR(use_angle_cls = True, lang='en', show_log = False, use_gpu = True)
-    ocr = []
-    bees_df = pd.DataFrame(columns = ['Image_Name', 'Timestamp', 'X1_Coordinate', 'Y1_Coordinate','X2_Coordinate', 'Y2_Coordinate', 'Confidence', 'Class_Number', 'Class_Name'])
+    if extract_timestamp == 'True':
+        ocr = PaddleOCR(use_angle_cls = True, lang='en', show_log = False, use_gpu = True)
+        bees_df = pd.DataFrame(columns = ['Image_Name', 'Timestamp', 'X1_Coordinate', 'Y1_Coordinate','X2_Coordinate', 'Y2_Coordinate', 'Confidence', 'Class_Number', 'Class_Name'])
+    elif extract_timestamp == 'False':
+        ocr = []
+        bees_df = pd.DataFrame(columns = ['Image_Name', 'X1_Coordinate', 'Y1_Coordinate','X2_Coordinate', 'Y2_Coordinate', 'Confidence', 'Class_Number', 'Class_Name'])
 
     for image in image_list:
         imgs_names.append(os.path.split(image)[1])
@@ -351,12 +354,16 @@ def process_video(video_path):
     logging.info(f"---------------------------------------------------------------------------------")
 
 def main(args):
-    
     global cuda_device
     cuda_device = torch.device(f'cuda:{args.cuda_device}')
-    cuda_device = torch.device(f'cuda:{2}') #hashtagged this Mohamed
+    # cuda_device = torch.device(f'cuda:{2}') #hashtagged this Mohamed
 
-    args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_10_15_00_01.h264'
+    global model_dir
+    model_dir =  os.path.abspath(os.path.join(__file__ ,"../.."))
+
+    # args.path_to_video = '/home/katharina/Bee_videos/Examples/Original/'
+    # args.path_to_video = '/home/katharina/Bee_videos/Examples/Original/YOLO_Plot08_top_2021_04_16_afternoon.h264'
+    # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_10_15_00_01.h264'
     # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_10_10_00_01.h264' #hashtagged this Mohamed
     # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_12_15_00_01.h264' #hashtagged this Mohamed
     # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_10_10_00_01.h264'
@@ -365,14 +372,17 @@ def main(args):
 
     # Handling multiple videos in a directory
     if os.path.isdir(args.path_to_video):
-        videos = os.listdir(args.path_to_video)
+        videos = sorted(os.listdir(args.path_to_video))
         for video in videos:
-            video_path = f"{args.path_to_video}/{video}"
-            logging.info(f"Processing video {video_path}")
-            process_video(video_path)
+            if video.endswith('.h264') or video.endswith('.mp4'):
+                video_path = f"{args.path_to_video}/{video}"
+                print(f"Processing video {video_path}")
+                process_video(video_path)
+            else:
+                print(f"Skipping {video} directory, not a video ...")
     elif os.path.isfile(args.path_to_video):
         video_path = args.path_to_video
-        logging.info(f"Processing video {video_path}")
+        print(f"Processing video {video_path}")
         process_video(video_path)
     else:
         print(f"Video {args.path_to_video} not found")
