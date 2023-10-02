@@ -7,10 +7,10 @@ import numpy as np
 import pandas as pd
 import datetime, time
 import copy
-#from paddleocr import PaddleOCR
+#from paddleocr import PaddleOCR # For (optional) use of timestamp extractor. The function is still in beta and should only be used with additional testing.
 import logging
 import math
-#import ffmpeg #hashtagged this as ffmpeg is already installed in yolo_env, otherwise error KW
+#import ffmpeg # If ffmpeg is only installed in your virtual environment, one needs to unhashtag this. If the manual in the readme-file was followed, no changes necessary.
 
 def convert_to_mp4(path_to_video):
     """
@@ -79,7 +79,7 @@ def import_frames_to_list(save_to_dir):
 
 def yolo_detect(model_weights, batch_size, image_list, save_to_dir, extract_timestamp, cut, window_size):
     """
-    This method applies the trained YOLO bee detector and outputs the result into a DataFrame.
+    This method applies the trained bee-finder and outputs the result into a DataFrame. The additional bee-finder information like blue_tag, red_tag etc. are for counting individual bees (or other animals) of other classes (we kindly refer to the readme-file). They can be adapted depending on the use of the bee-finder.
     """
     # First time initialization 
     no_occ_prev = {'ocornuta'   : 10000,
@@ -106,11 +106,12 @@ def yolo_detect(model_weights, batch_size, image_list, save_to_dir, extract_time
 
     count = 0
     # Model
-    # model_dir = f"{os.getcwd()}/bee-finder" #Removed "/bee-finder" as wrong path KW
 
-    model = torch.hub.load(model_dir, 'custom', path = model_weights, source = 'local') #changed to directory with yolov5 folder KW
-    # model = torch.hub.load('/home/katharina/yolov5_modified', 'custom', path = model_weights, source = 'local') #changed to directory with yolov5 folder KW
-    # model = torch.hub.load('/home/katharina/bee-finder', 'custom', path = model_weights, source = 'local') #tryout bee_finder KW
+    model = torch.hub.load(model_dir, 'custom', path = model_weights, source = 'local')
+
+    #For debugging
+    # model = torch.hub.load('/home/katharina/bee-finder', 'custom', path = model_weights, source = 'local')
+    
     model.to(cuda_device)
 
     imgs = []
@@ -166,7 +167,7 @@ def yolo_detect(model_weights, batch_size, image_list, save_to_dir, extract_time
 
 def bee_count(batch_pred, window_size, no_occ_prev, bee_counter, no_occ_accum, count):
     """
-    This method is responsible for counting the bees.
+    This method is responsible for counting the bees. It estimates them by counting the median appearance of a bee in one second (to be more robust if the bee was not detected in several frames within one second). If a gap of more than one second is between detections, it will recognize a new detection as different bee. The bee counting is an estimator tool only and works best with 60 fps.
     """
     batch_pred = batch_pred.pandas().xyxy # DF with size of batch_size
 
@@ -237,7 +238,7 @@ def move_detected_objects_to_dir(pred, save_to_dir, **kwargs):
 def extract_timestamp(image, ocr):
     """
     This method extracts the timestamp from input frames and updates the bees DF with extracted timestamps. It is then exported and saved 
-    in csv format.
+    in csv format. Currently, this function is in beta and requires additional testing before actual use.
     """ 
     img = cv2.imread(image)
     timestamp_section = img[15:55, 360:660] # Pixels containing the timestamp
@@ -253,7 +254,7 @@ def extract_timestamp(image, ocr):
 
 def bees_dataframe(df, image, extract_timestamp, bees_df, ocr):
     """
-    This methods saves the results from the yolo detector into a DataFrame.
+    This methods saves the results from the bee finder into a DataFrame. Please note that the function extract_timestamp is still in beta and requires additional testing before actual use.
     """
 
     if extract_timestamp == 'True':
@@ -290,7 +291,7 @@ def parse_args():
     parser.add_argument('--model_weights', default = '/home/katharina/Pipeline_files/best.pt', type = str, help = 'Path to model weights (the "best.pt" file)')
     parser.add_argument('--fps', default = 1, type = int, help = 'Frames Per Second for converting videos to frames')
     parser.add_argument('--batch_size', default = 128, type = int, help = 'How many images are processed per time')
-    parser.add_argument('--extract_timestamp', default = 'False', choices = ('True', 'False'), help = 'When set to True, runs images into OCR timestamp extractor and saves results in a csv file')
+    parser.add_argument('--extract_timestamp', default = 'False', choices = ('True', 'False'), help = 'When set to True, runs images into OCR timestamp extractor and saves results in a csv file. Currently, this function is in beta and requires additional testing before actual use. ')
     parser.add_argument('--cut', default = 'True', choices = ('True', 'False'), help = 'When set to True, removes images that do not contain any bees')
     args = parser.parse_args()
     return args
@@ -332,7 +333,6 @@ def process_video(video_path):
     image_list = import_frames_to_list(save_to_dir)
 
     yolo_detect(args.model_weights, args.batch_size, image_list, save_to_dir, args.extract_timestamp, args.cut, window_size = 60)
-    # yolo_detect(args.model_weights, args.detect_tagged_bees, args.batch_size, image_list, save_to_dir, args.extract_timestamp, args.cut, window_size = args.fps)
     
     frames_to_vid(save_to_dir, args.fps)
 
@@ -361,13 +361,7 @@ def main(args):
     global model_dir
     model_dir =  os.path.abspath(os.path.join(__file__ ,"../.."))
 
-    # args.path_to_video = '/home/katharina/Bee_videos/Examples/Original/'
-    # args.path_to_video = '/home/katharina/Bee_videos/Examples/Original/YOLO_Plot08_top_2021_04_16_afternoon.h264'
-    # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_10_15_00_01.h264'
-    # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_10_10_00_01.h264' #hashtagged this Mohamed
-    # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_12_15_00_01.h264' #hashtagged this Mohamed
-    # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_10_10_00_01.h264'
-    # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/Plot01_top_2021_04_12_15_00_01.mp4' #hashtagged this Mohamed
+    # For debugging
     # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/videos_test'
 
     # Handling multiple videos in a directory
