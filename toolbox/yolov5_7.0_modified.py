@@ -356,7 +356,7 @@ def process_video(video_path):
 def main(args):
     global cuda_device
     cuda_device = torch.device(f'cuda:{args.cuda_device}')
-    # cuda_device = torch.device(f'cuda:{2}') #hashtagged this Mohamed
+    # cuda_device = torch.device(f'cuda:{2}') #hashtagged this
 
     global model_dir
     model_dir =  os.path.abspath(os.path.join(__file__ ,"../.."))
