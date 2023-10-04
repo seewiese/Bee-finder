@@ -346,7 +346,7 @@ In this case, the wrong separators were used to set the correct path. Windows ca
 <br>
 
 This error shows that it cannot recognise the pathway prompted in the menu. The error is caused by the folder which contains a " "[space] and can be easily fixed by wrapping the whole pathway in ' '. The fixed command looks like this: 
-```cd 'C:/Users/Katharina Wittmann/Documents/Random_folder'```
+```cd 'C:/Users/Max Mustermann/Documents/Random_folder'```
 
  <br>
 2. While training YOLOv5: <br>
