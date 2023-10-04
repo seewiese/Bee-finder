@@ -1,6 +1,6 @@
 # Bee-finder
 
-The bee-finder aims to simplify the evaluation process of videos by filtering them for relevant animal frames and reconstructing a video with detected animals only. Its target group are users that are not (yet) familiar with tools like command line, programming etc. The provided weights are to detect horned mason bees (<em>O. cornuta</em>) in front of a nesting aid. The manual provides a step-by-step guide how to train one's own YOLO network, as well. 
+The bee-finder aims to simplify the evaluation process of videos. One can input video files in ".264" and ".mp4" format which the bee-finder will filter for target species (according to the weights provided) and reconstruct a ".mp4" video file out of the frames which contain detected target species. The target group of the bee-finder are users that are not (yet) familiar with tools like command line, programming etc. The provided weights are to detect horned mason bees (<em>O. cornuta</em>) in front of a nesting aid. This manual provides a step-by-step guide how to train one's own YOLO network, as well. 
 
 ## Installation and set-up
 
