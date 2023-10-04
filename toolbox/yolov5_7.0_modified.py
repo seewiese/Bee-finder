@@ -110,7 +110,7 @@ def yolo_detect(model_weights, batch_size, image_list, save_to_dir, extract_time
     model = torch.hub.load(model_dir, 'custom', path = model_weights, source = 'local')
 
     #For debugging
-    # model = torch.hub.load('/home/katharina/bee-finder', 'custom', path = model_weights, source = 'local')
+    # model = torch.hub.load('/home/anonymous/bee-finder', 'custom', path = model_weights, source = 'local')
     
     model.to(cuda_device)
 
@@ -288,7 +288,7 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--cuda_device', default = '0', type = str, help = 'CUDA device to run script on') 
     parser.add_argument('--path_to_video', type = str, help = 'Path of Input Video to be processed')   
-    parser.add_argument('--model_weights', default = '/home/katharina/Pipeline_files/best.pt', type = str, help = 'Path to model weights (the "best.pt" file)')
+    parser.add_argument('--model_weights', default = '/home/anonymous/Pipeline_files/best.pt', type = str, help = 'Path to model weights (the "best.pt" file)')
     parser.add_argument('--fps', default = 1, type = int, help = 'Frames Per Second for converting videos to frames')
     parser.add_argument('--batch_size', default = 128, type = int, help = 'How many images are processed per time')
     parser.add_argument('--extract_timestamp', default = 'False', choices = ('True', 'False'), help = 'When set to True, runs images into OCR timestamp extractor and saves results in a csv file. Currently, this function is in beta and requires additional testing before actual use. ')
@@ -362,7 +362,7 @@ def main(args):
     model_dir =  os.path.abspath(os.path.join(__file__ ,"../.."))
 
     # For debugging
-    # args.path_to_video = '/home/katharina/Bee_videos/Plot01/TOP/videos_test'
+    # args.path_to_video = '/home/anonymous/Bee_videos/Plot01/TOP/videos_test'
 
     # Handling multiple videos in a directory
     if os.path.isdir(args.path_to_video):
