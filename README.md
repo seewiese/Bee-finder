@@ -331,7 +331,8 @@ We collected some mistakes that a person can run into.
 <br>
 
 <strong>Assertion error: File not found</strong> <br>
-![AssertionError](https://github.com/seewiese/bee-finder/assets/141718841/c49c3d9a-4ec8-4111-bd3a-cdae33e45b6e)
+
+![AssertionError](https://github.com/seewiese/bee-finder/assets/141718841/99ad7be9-c956-4dec-b5d8-d272426f5b4a)
 
 <br>
 
@@ -341,7 +342,7 @@ In this case, the wrong separators were used to set the correct path. Windows ca
 
 <strong>Set-Location </strong> <br>
 
-![Set-Location](https://github.com/seewiese/bee-finder/assets/141718841/f038778e-1374-4595-a8d4-daaf734ad322)
+![Set-Location](https://github.com/seewiese/bee-finder/assets/141718841/3aadfb63-45f2-488c-9812-db80839010b2)
 
 <br>
 
@@ -356,7 +357,7 @@ This error shows that it cannot recognise the pathway prompted in the menu. The 
 
 <br>
 
-![CUDA](https://github.com/seewiese/bee-finder/assets/141718841/5a417928-08b2-4382-8a31-5f64e4fa063a)
+![grafik](https://github.com/seewiese/bee-finder/assets/141718841/391988d2-1301-4edc-96af-35adcbcafb07)
 
 <br>
 
@@ -367,7 +368,7 @@ This error shows, when your GPU cannot process as many images simultaneously as 
 <strong>IndexError: index 2 is out of bounds for axis 0 with size 1</strong>
 <br>
 
-![Index](https://github.com/seewiese/bee-finder/assets/141718841/8258384a-bfad-42e8-8a40-7520413ab6bc)
+![Index](https://github.com/seewiese/bee-finder/assets/141718841/08d89ba0-1cf8-40dc-b2ee-f429b48f15eb)
 
 <br>
 This error shows when there is a problem with the annotated classes. In this case, there were annotations of a class "2", which was not specified in the "training_config.yaml" file. One can easily fix this by either correcting the "training_config.yaml" file when there are more than one classes (see <strong>Train yolov5 with custom data</strong>). The bee-finder only has one class, so that a correction of the file containing the class "2" to class "0" (as we only have "bee" as a class) solved the error.
