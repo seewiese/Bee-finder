@@ -204,8 +204,8 @@ if __name__ == "__main__":
     #main(args)
 
     # for debugging purposes
- #   args.your_pathway = '/home/katharina/test_bee-finder/bee-finder/data' 
-  #  args.class_number = 'Class_0'
+    #  args.your_pathway = '/home/anonymous/test_bee-finder/bee-finder/data' 
+    #  args.class_number = 'Class_0'
 
     images_directory = f"{args.your_pathway}/images/{args.class_number}"
     labels_directory = f"{args.your_pathway}/labels/{args.class_number}"
