@@ -248,7 +248,7 @@ conda activate yolo_env
 3.   Open the file "training_config.yaml", which you can find in the directory <em>bee-finder/data</em>, with Visual Studio Code. In there, replace the class names with the classes predefined in the annotation process, e.g. "O.cornuta", "bee", "Class_0" etc.. Save the file to finalize configuration for the YOLOv5 bee-finder. <br> <br>
 :bulb: <strong>TIPP</strong>: A quick adaptation in the Anaconda prompt is also possible with a standard software called nano (already installed in base anaconda), so you can adapt the code by navigating to the folder which contains the "training_config.yaml" file via Anaconda prompt and type ```nano training_config.yaml```. Change the pathway, press Ctrl + X and confirm the change with Y. <br>
 
-![grafik](https://github.com/seewiese/Bee_finder_old/assets/141718841/b3e1ec6b-2064-4108-a332-4f13494591c2)
+![grafik](https://github.com/seewiese/bee-finder/assets/141718841/d3a8760a-93a1-41a6-b044-4af5e33db382)
 
 
 <br>
