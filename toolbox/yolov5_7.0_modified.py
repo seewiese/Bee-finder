@@ -10,7 +10,7 @@ import copy
 #from paddleocr import PaddleOCR # For (optional) use of timestamp extractor. The function is still in beta and should only be used with additional testing.
 import logging
 import math
-#import ffmpeg # If ffmpeg is only installed in your virtual environment, one needs to unhashtag this. If the manual in the readme-file was followed, no changes necessary.
+#import ffmpeg # If ffmpeg is only installed in your virtual environment, you need to unhashtag this. If the manual in the readme-file was followed, no changes necessary.
 
 def convert_to_mp4(path_to_video):
     """
