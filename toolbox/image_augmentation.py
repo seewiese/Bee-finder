@@ -11,7 +11,7 @@ import argparse
 
 
 ##########
-
+# Definition of parse prompts including prompt information.
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--class_number', default = "Class_0", type = str, help = 'Define the folder name containing all image and label training data.')
