@@ -208,7 +208,7 @@ conda activate yolo_env
 3.    Now, you need to copy all images from the folder (in our example "Class_0") to the train (70%), val (20%) and test (10%) folders. For this, the "split_dataset.py" function was created. The original files will stay in the "Class_0" folder and only copies will be created in the train, val and test folders. Following arguments can be adapted depending on your setup: <br>
 <strong>--class_number</strong>: The name of the folder which includes the images and the ".txt" files (see "Data Organisation for YOLOv5 training"). If you have more than one class (e.g. "Class_1"), adapt the code by replacing "Class_0" with "Class_1". 
     <br>
-<strong>--your_pathway</strong>: The pathway to the folder "toolbox". Please copy and paste your pathway to the file.
+<strong>--your_pathway</strong>: The pathway to the folder containing the folders “images” and “labels” (according to structure shown in “Data organisation for YOLOv5 training”). Please copy and paste this pathway.
 
 <br>
 You can apply the function by typing and confirming:
@@ -216,7 +216,7 @@ You can apply the function by typing and confirming:
 <br>
 
 ```bash
-python split_dataset.py --class_number="Class_0"  --your_pathway='[system_path_to_folder]/data/'
+python split_dataset.py --class_number="Class_0"  --your_pathway='[system_path_to_folder]/'
 ```
 
 <br>
