@@ -12,6 +12,5 @@ authors:
   - given-names: Mohamed
     family-names: Gamal Ibrahim
 repository-code: >-
-  https://github.com/citation-file-format/citation-file-format
-repository: 'http://www.figshare.org'
+  https://github.com/seewiese/bee-finder/
 license: GPL-3.0
