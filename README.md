@@ -1,6 +1,6 @@
 # Bee-finder
 
-The bee-finder aims to simplify the evaluation process of videos. One can input video files in ".264" and ".mp4" format, which the bee-finder will filter for target species (according to the weights provided) and reconstruct a ".mp4" video file out of the frames which contain detected target species. The target group of the bee-finder are users that are not (yet) familiar with tools like command line, programming etc. The provided weights are to detect horned mason bees (<em>O. cornuta</em>) in front of a nesting aid. This manual provides a step-by-step guide how to train one's own YOLO network, as well. 
+The bee-finder aims to simplify the evaluation process of videos. One can input video files in "H.264" and "mp4" format, which the bee-finder will filter for target species (according to the weights provided) and reconstruct a "mp4" video file out of the frames which contain detected target species. The target group of the bee-finder are users that are not (yet) familiar with tools like command line, programming etc. The provided weights are to detect horned mason bees (<em>O. cornuta</em>) in front of a nesting aid. This manual provides a step-by-step guide how to train one's own YOLO network, as well. 
 
 ## Installation and set-up
 
@@ -25,7 +25,7 @@ A decent NVIDIA GPU is necessary to use the CNN YOLOv5 on which the bee-finder i
 <br>
 
 <em>ffmpeg</em>
-<br> Neccessary for video processing, e.g. to convert the videos in .h264 format into .mp4 format.
+<br> Neccessary for video processing, e.g. to convert the videos in H.264 format into mp4 format.
 
   - On Windows: <br>
         1. [Download](https://www.gyan.dev/ffmpeg/builds/) the ffmpeg version which is appropriate for your system. <br>
@@ -276,7 +276,7 @@ adapt following arguments according to your setup:
 <br>
 <br>
 
-For every epoch, the box-loss, object loss and class loss will be shown. Also, the mAP@0.5:0.95 will be depicted, which will increase each epoch while YOLO improves its detecting skills by adjusting weights until no improvement is possible any more. If this plateau cannot be found with the epochs you specified within the “train.py” function, repeat the training by increasing the number of epochs. All results of the run will be saved in a results.csv document within <em>bee-finder/runs/train/exp</em>.
+For every epoch, the box-loss, object loss and class loss will be shown. Also, the mAP@0.5:0.95 will be depicted, which will increase each epoch while YOLO improves its detecting skills by adjusting weights until no improvement is possible any more. If this plateau cannot be found with the epochs you specified within the “train.py” function, repeat the training by increasing the number of epochs. All results of the run will be saved in a csv document within <em>bee-finder/runs/train/exp</em>.
 <br><br>
 The best weights will be saved in the weights folder.
 <br>
@@ -317,7 +317,7 @@ python yolov5_7.0_modified.py --path_to_video="<Path_to_videos>/" --model_weight
 ```
 
 <br>   
-:bulb: <strong>TIPP</strong>:  If you need to extract a timestamp in the generated .csv file, you can utilize the image names (i.e. frame number) in the log-file, as it consists of consecutive numbers by calculating (frame number)/(fps of video)=seconds in the video you can replicate a time stamp for each detection. <br>
+:bulb: <strong>TIPP</strong>:  If you need to extract a timestamp in the generated csv file, you can utilize the image names (i.e. frame number) in the log-file, as it consists of consecutive numbers by calculating (frame number)/(fps of video)=seconds in the video you can replicate a time stamp for each detection. <br>
 
 :bulb: <strong>TIPP</strong>: If you want to use the bee-finder on videos with 60 fps, an estimate of independent bee flights is calculated by calculating the detections at image margin. By generating the median of how many bees were present on the margin per second, an estimate of independent bee flights in and out of the nesting aid is calculated. Please note that this bee counter only works with 60 fps.
 <br>
