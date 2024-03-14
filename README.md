@@ -118,6 +118,9 @@ Some libraries and python require a specific version which we need to install in
       ```
 
 🠊 The bee-finder has been set up successfully.
+<br>
+
+:bulb: <strong> TIPP </strong>: The same steps are necessary to install an unmodified YOLOv5 version. It is only necessary to replace the code from step 6 and 7 with “git clone https://github.com/ultralytics/yolov5” and “pip install -r requirements.txt”
  
 <br>
 
